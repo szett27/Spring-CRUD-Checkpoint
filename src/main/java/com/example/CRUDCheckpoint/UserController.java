@@ -75,27 +75,30 @@ import java.util.Optional;
         @GetMapping("/password")
         public String getPW(@RequestBody User u){
             //retrieved elements from body fine
-            String email = u.getEmail();
-            return (email);
+            //issue with retrieving pw from db
+
+             return this.repository.retrievePW(u.getEmail());
+
         }
 
         @PostMapping("/authenticate")
-        public Map<String, String> authenticate(@RequestBody User u){
+        public Map<String, Object> authenticate(@RequestBody User u){
             String password = u.getPassword();
-            String authenticate = "false";
+            Boolean authenticate = false;
 
             //Get password by User
             String dbpassword = this.repository.retrievePW(u.getEmail());
 
             if(password.equals(dbpassword)){
-                authenticate = "true";
+                authenticate = true;
             }
 
-            Map<String, String> authenticated = new HashMap<>();
+            Map<String, Object> authenticated = new HashMap<>();
             if(authenticate.equals("true")) {
                 authenticated.put("authenicated: ", authenticate);
                 authenticated.put("user: ", u.toString());
             } else {
+                authenticated.put("authenicated: ", authenticate);
 
             }
 
