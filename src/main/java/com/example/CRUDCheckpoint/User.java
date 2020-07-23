@@ -1,6 +1,8 @@
 package com.example.CRUDCheckpoint;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 
@@ -33,6 +35,8 @@ public class User {
         this.email = email;
     }
 
+    @JsonIgnore
+    @JsonProperty(value = "password")
     public String getPassword() {
         return password;
     }
